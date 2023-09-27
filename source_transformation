@@ -98,6 +98,10 @@
                 "targetPath": "$.phoneNumbers"
             },
             {
+                "targetPath": "$.phoneNumbers[0].type",
+                "defaultValue": "mobile"
+            },
+            {
                 "sourcePath": "$.displayName",
                 "optional": true,
                 "targetPath": "$.displayName"
