@@ -1,0 +1,132 @@
+{
+    "user": {
+        "condition": "$.userPrincipalName EMPTY false",
+        "mappings": [
+            {
+                "sourcePath": "$",
+                "targetPath": "$"
+            },
+            {
+                "sourcePath": "$.id",
+                "targetVariable": "entityIdSourceSystem"
+            },
+            {
+                "sourcePath": "$.mailNickname",
+                "targetPath": "$.externalId",
+                "optional": true,
+                "correlationAttribute": true
+            },
+            {
+                "targetPath": "$.schemas[0]",
+                "constant": "urn:ietf:params:scim:schemas:core:2.0:User"
+            },
+            {
+                "sourcePath": "$.mail",
+                "targetPath": "$.emails[0].value",
+                "correlationAttribute": true
+            },
+            
+            {
+               
+                "sourcePath": "$.onPremisesSamAccountName",
+                "targetPath": "$.userName",
+                "correlationAttribute": true
+            },
+            {
+                "sourcePath": "$.displayName",
+                "targetPath": "$.displayName",
+                "optional": true
+            },
+            {
+                "sourcePath": "$.givenName",
+                "targetPath": "$.name.givenName",
+                "optional": true
+            },
+            {
+                "sourcePath": "$.surname",
+                "targetPath": "$.name.familyName",
+                "optional": true
+            },
+            {
+                "sourcePath": "$.onPremisesSamAccountName",
+                "targetPath": "$.onPremisesSamAccountName"
+            },
+            {
+                "sourcePath": "$.mobilePhone",
+                "targetPath": "$.phoneNumbers[0].value",
+                "optional": true,
+                "defaultValue": "888-888-8888"
+            },
+            {
+                "targetPath": "$.phoneNumbers[0].type",
+                "condition": "$.mobilePhone EMPTY false",
+                "constant": "mobile"
+            },
+            {
+                "sourcePath": "$.businessPhones[0]",
+                "targetPath": "$.phoneNumbers[1].value",
+                "optional": true
+            },
+            {
+                "targetPath": "$.phoneNumbers[1].type",
+                "condition": "$.businessPhones.length() > 0",
+                "constant": "work"
+            },
+            {
+                "sourcePath": "$.groups",
+                "targetPath": "$.groups",
+                "optional": true,
+                "preserveArrayWithSingleElement": true
+            },
+            {
+                "sourcePath": "$.manager.id",
+                "targetPath": "$['urn:ietf:params:scim:schemas:extension:enterprise:2.0:User']['manager']['value']",
+                "optional": true
+            },
+            {
+                "sourcePath": "$.manager.displayName",
+                "targetPath": "$['urn:ietf:params:scim:schemas:extension:enterprise:2.0:User']['manager']['displayName']",
+                "optional": true
+            },
+            {
+                "sourcePath": "$.employeeId",
+                "targetPath": "$['urn:ietf:params:scim:schemas:extension:enterprise:2.0:User]['employeeNumber']",
+                "optional": true
+            }
+        ]
+    },
+    "group": {
+        "ignore": true,
+        "mappings": [
+            {
+                "targetPath": "$.schemas[0]",
+                "constant": "urn:ietf:params:scim:schemas:core:2.0:Group"
+            },
+            {
+                "sourcePath": "$.id",
+                "targetVariable": "entityIdSourceSystem"
+            },
+            {
+                "sourcePath": "$.mailNickname",
+                "targetPath": "$.externalId",
+                "optional": true
+            },
+            {
+                "sourcePath": "$.displayName",
+                "targetPath": "$.displayName"
+            },
+            {
+                "sourcePath": "$.members",
+                "targetPath": "$.members",
+                "optional": true,
+                "preserveArrayWithSingleElement": true
+            },
+            {
+                "targetPath": "$.members[*].id",
+                "constant": "value",
+                "optional": true,
+                "type": "rename"
+            }
+        ]
+    }
+}
