@@ -33,10 +33,6 @@
                         "function": "putIfAbsent",
                         "key": "verified",
                         "defaultValue": true
-                    },
-                    {
-                        "function": "toLowerCaseString",
-                        "locale": "en_EN"
                     }
                 ]
             },
@@ -47,7 +43,13 @@
             {
                 "sourcePath": "$.emails[*].value",
                 "preserveArrayWithSingleElement": true,
-                "targetPath": "$.emails[?(@.value)]"
+                "targetPath": "$.emails[?(@.value)]",
+                "functions": [
+                    {
+                        "function": "toLowerCaseString",
+                        "locale": "en_EN"
+                    }
+                ]
             },
             {
                 "sourcePath": "$.name.givenName",
