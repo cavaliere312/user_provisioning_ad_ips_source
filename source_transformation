@@ -111,6 +111,16 @@
                 "sourcePath": "$.city",
                 "optional": true,
                 "targetPath": "$.addresses[0].locality"
+            },
+            {
+                "sourcePath":"$.department",
+                "optional": true,
+                "targetPath":"$['urn:ietf:params:scim:schemas:extension:enterprise:2.0:User']['department']"
+            },
+            {
+                "sourcePath":"$.employeeId",
+                "optional": true,
+                "targetPath":"$['urn:ietf:params:scim:schemas:extension:enterprise:2.0:User']['employeeNumber']"
             }
         ]
     },
